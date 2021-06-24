@@ -1,0 +1,59 @@
+.dHeader{
+    justify-content: center;
+    background: url('../images/backdrop.jpg') 50% 50% no-repeat;
+}
+.dHeader h3{
+    text-align: center;
+    padding:40px;
+    font-size: 1.4em;
+}
+.page{
+    background: #fff;
+    padding: 30px;
+    color: #000 !important;
+    text-align: center;
+}
+.page label{
+    color: #8f95a5 !important;
+}
+.page *{
+    color: #000;
+}
+.request{
+    background: #e3e7f0;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 5px;
+    margin: 20px auto;
+    text-align: left;
+    display:flex;
+    align-items:center;
+    padding: 12px;
+}
+.request img{
+    width: 70px;
+    height:70px;
+    margin-right: 10px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+.request .options{
+    display:flex;
+    align-items:center;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+.request h3{
+    margin-bottom: 5px;
+}
+.request p{
+    opacity: 0.5;
+}
+.options div{
+    background: #ff2051;
+    padding: 15px;
+    border-radius: 5px;
+    margin-right: 10px;
+    color: #fff;
+    font-weight: bold;
+}

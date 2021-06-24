@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Catamaran" rel="stylesheet">
+    <link href="./assets/css/styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="hero">
+            <div class="rectangle"></div>
+            <div class="header">
+                <div class="hamburger" onclick="openNav()">
+                    <img src="./assets/icons/menu.png" alt="menu" width="100%" height="100%"/>
+                </div>
+                <div class="logo" >
+                    <img src="./assets/images/Vector.png" />
+                    <p>ARINKA</p>
+                </div>
+                <div class="menu overlay">
+                    <div class="close-btn" onclick="closeNav()">
+                      <img src="./assets/icons/close.png" alt="menu" width="100%" height="100%"/>
+                    </div>
+                    <ul class="nav overlay-content">
+                        <li>LOCATIONS</li>
+                        <li>MOODS</li>
+                        <li>BLOG</li>
+                    </ul>
+                    <button>LOGIN/SIGNUP</button>
+                </div>
+            </div>
+            <div class="main">Discover the best places to travel in Nigeria</div>
+            <div class="search-modal"></div>
+            <div class="search" onclick="openSearch()">
+                <div class="close" onclick="closeSearch()">
+                  <img src="./assets/icons/close.png" alt="menu" width="100%" height="100%"/>
+                </div>
+                <p>What type of adventure are you looking for?</p>
+                <input class="input" type="text" placeholder="e.g educational, outdoors, relaxed"/>
+            </div>
+        </div>
+        <div class="about" >
+            <h5>ABOUT ARINKA</h5>
+            <p>
+                Arinka is a fictional company, but actually a real idea someone had sometime in the past. In 1985 Aldus Corporation launched
+                its first desktop publishing program Aldus PageMaker for Apple Macintosh computers, released in 1987 for
+                PCs running Windows 1.0. Both contained the variant lorem ipsum most common today.
+            </p>
+        </div>
+        <div class="locations">
+            <div class="cards">
+                <div class="card">
+                    <img src="https://res.cloudinary.com/evicon/image/upload/w_auto/bauchi_smllft.jpg" class="cld-responsive">
+                    <div class="shadow">
+                        <div class="text">
+                            <h4>Bauchi Park</h4>
+                            <p>Relaxed holiday for two</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://res.cloudinary.com/evicon/image/upload/w_500,h_500,c_fill/jos_dipt2s.jpg" class="cld-responsive">
+                    <div class="shadow">
+                        <div class="text">
+                            <h4>Jos, Plateau</h4>
+                            <p>Experience Nigeria in the 60's</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://res.cloudinary.com/evicon/image/upload/w_0.4,h_0.7,c_crop/abuja_yxaplk.jpg" class="cld-responsive">
+                    <div class="shadow">
+                        <div class="text">
+                            <h4>Abuja Car Racing</h4>
+                            <p>Get your adrenaline pumping</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button>SEE MORE</button>
+            
+        </div>
+        <div class="blog">
+            <div class="mosque">
+                <div class="blog-text">
+                    <p>ON THE BLOG</p>
+                    <h4 >
+                        Hanging out in Borno
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Terms and Conditions</p>
+            <p>Copyright Fronstack inc.</p>
+        </div>
+    </div>
+    <script src="node_modules/lodash/lodash.js"                   type="text/javascript"></script>
+    <script src="node_modules/cloudinary-core/cloudinary-core.js" type="text/javascript"></script>
+    <script>
+        //Checks the device width and download responsive image from cloudinary
+        checkWidth();
+
+        // Cloudinary setup
+        var cl = cloudinary.Cloudinary.new( { cloud_name: "evicon"});
+        cl.responsive();
+
+        const overlay = document.querySelector(".overlay");
+        const nav = document.querySelector('.nav')
+        const defNavClass= nav.className;
+
+        // Listen for the resize event to adjust the nav and
+        //Checks the device width and download responsive image from cloudinary
+        window.addEventListener('resize', function(e){
+            if(window.innerWidth > 500)
+               overlay.style.transform = "";
+            checkWidth();
+        });
+
+        //Checks the width of the device and
+        // Get's a responsive image from cloudinary
+        function checkWidth(){
+            if(window.innerWidth <= 500)
+                responsiveImage(0.5, 0.7)
+            else if(window.innerWidth < 1152)
+                responsiveImage(0.7);
+        }
+
+        // Gets the image tag and changes it src 
+        // realtive to the device width which makes
+        // it responsive
+        function responsiveImage(width, height){
+            //responsive images
+            const cards = document.querySelectorAll('.card');
+            for(let i = 0; i < cards.length; i++){
+
+                let  imgSrc = cards[i].childNodes[1].attributes.src;
+                let value = '';
+
+                if(height)
+                     value = `https://res.cloudinary.com/evicon/image/upload/w_${width},h_${height},c_crop`;
+                else    
+                     value = `https://res.cloudinary.com/evicon/image/upload/w_${width},c_crop`;
+                let imgId = imgSrc.value.substr(imgSrc.value.lastIndexOf('/'));
+
+                imgSrc.value = value + imgId;
+                
+            }
+
+        }
+        // Open navigation menu on click
+        function openNav() {
+            nav.className = defNavClass + ' animation';
+            overlay.style.opacity = "1";
+            overlay.style.transform = "translateY(0%)";
+        }
+
+        // Close navigation menu on click
+        function closeNav() {
+           nav.className = defNavClass;
+           overlay.style.transform = "translateY(-200%)";
+        } 
+
+        // Open search on click
+        function openSearch(){
+            const search = document.querySelector('.search-modal');
+            if(search.classList[1] != 'close')
+                search.className += ' display'; 
+            console.log(search.className)
+        }
+
+        // Close search on click
+        function closeSearch(){
+            const searchModal = document.querySelector('.search-modal');
+            const search = document.querySelector('.search');
+            search.style.opacity = 0.00000000007;
+            searchModal.className = 'search-modal close display';
+            setTimeout(function(){
+                search.style.opacity = 1;
+                searchModal.className = 'search-modal'
+            },400)
+            
+        }
+    </script>   
+</body>
+
+</html>
